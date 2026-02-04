@@ -11,7 +11,7 @@ body {
   justify-content: center;
   background: radial-gradient(circle at top, #ff9ad5, #4b0057 65%);
   color: #fff;
-  overflow: hidden;
+  overflow-x: hidden;       /* allow vertical scroll if needed */
   position: relative;
 }
 
@@ -50,7 +50,8 @@ body.celebrating {
 /* Main card */
 .card {
   width: min(720px, 94vw);
-  height: 560px;
+  /* remove fixed height and let it grow */
+  min-height: 520px;
   padding: 44px 36px 40px;
   border-radius: 34px;
   background:
@@ -127,6 +128,7 @@ body.celebrating {
   font-weight: 600;
 }
 
+/* BUTTONS */
 .buttons {
   position: relative;
   height: 110px;
@@ -177,7 +179,7 @@ button {
 /* GIFT AREA – always shown */
 .gift-wrapper {
   margin-top: 46px;
-  height: 220px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -396,16 +398,82 @@ button {
   }
 }
 
-/* tiny mobile tweak */
-@media (max-width: 400px) {
-  .card {
-    padding-inline: 22px;
+
+/* tablets & small laptops */
+@media (max-width: 768px) {
+  body {
+    align-items: center;
+    padding: 18px 0;
   }
+
+  .card {
+    width: 94vw;
+    min-height: auto;
+    padding: 28px 20px 30px;
+    border-radius: 26px;
+    box-shadow: 0 22px 60px rgba(0,0,0,0.7);
+  }
+
   #topQuestion h1 {
     font-size: 1.7rem;
   }
+
+  .subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+
+  .gift-wrapper {
+    margin-top: 32px;
+  }
+
   .gift-message {
-    width: 92vw;
+    top: -130px;
     padding: 18px 16px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* phones */
+@media (max-width: 480px) {
+  #topQuestion h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .buttons {
+    height: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.95rem;
+    padding: 11px 18px;
+  }
+
+  /* start NO button stacked under YES by default;
+     JS will still move it around when hovered */
+  #noBtn {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+
+  .gift-wrapper {
+    margin-top: 26px;
+  }
+
+  .gift-message {
+    top: -120px;
+    max-width: 92vw;
   }
 }
