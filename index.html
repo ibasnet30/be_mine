@@ -94,7 +94,7 @@
       const yesRight  = yesLeft + yesBtn.offsetWidth;
       const yesBottom = yesTop  + yesBtn.offsetHeight;
 
-      const padding = 5; // 🔒 strict buffer around YES
+      const padding = 5; // strict buffer around YES
 
       let newX, newY;
       let tries = 0;
@@ -126,62 +126,79 @@
     noBtn.addEventListener("mousemove", moveNoButton);
     noBtn.addEventListener("touchstart", moveNoButton);
 
-    // Confetti
+    // 🎉 Confetti – brighter & more colourful
     function createConfetti() {
       const container = document.createElement("div");
       container.className = "confetti-container";
       document.body.appendChild(container);
 
-      const colors = ["#ffb3e6", "#ff80bf", "#ffcce6", "#e6b3ff", "#ffd1dc"];
-      const pieces = 130;
+      const colors = [
+        "#ff3b7f", // hot pink
+        "#ff9f0a", // orange
+        "#ffcc00", // gold
+        "#34c759", // green
+        "#5ac8fa", // blue
+        "#af52de", // purple
+        "#ffd1dc"  // soft pink
+      ];
+
+      const pieces = 150;
 
       for (let i = 0; i < pieces; i++) {
         const piece = document.createElement("span");
         piece.className = "confetti";
 
-        const size = 6 + Math.random() * 6;
+        const size = 6 + Math.random() * 7;
         piece.style.width = size + "px";
-        piece.style.height = (size * 1.6) + "px";
+        piece.style.height = (size * (1.2 + Math.random() * 0.8)) + "px";
 
         piece.style.left = Math.random() * 100 + "vw";
-        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDuration = 3 + Math.random() * 2 + "s";
+        piece.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        const roundnessOptions = ["2px", "4px", "999px"];
+        piece.style.borderRadius =
+          roundnessOptions[Math.floor(Math.random() * roundnessOptions.length)];
+
+        piece.style.animationDuration = 2.2 + Math.random() * 2.8 + "s";
         piece.style.animationDelay = Math.random() * 3 + "s";
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
 
         container.appendChild(piece);
       }
     }
 
-    // YES click ;  change question, heart color & show message
+    // YES click ; change question, heart color & show message
     yesBtn.addEventListener("click", () => {
       if (giftBox.classList.contains("open")) return;
 
       const titleNamePart = crushName ? `, ${crushName}` : "";
 
-        const openingLine = crushName
+      const openingLine = crushName
         ? `Every day with you feels special, ${crushName}. ❤️<br>`
         : `Every day with you feels special. ❤️<br>`;
 
-        const loveLine = crushName
+      const loveLine = crushName
         ? `I love you more than words can ever explain, ${crushName}.<br>`
         : `I love you more than words can ever explain.<br>`;
 
-        const commitmentLine = `
+      const commitmentLine = `
         You are my partner, my safe place, and my favourite person.<br>
         Thank you for choosing me, today and every day. 🤍<br><br>
-        `;
+      `;
 
-        msg.innerHTML = `
+      // Message in box
+      msg.innerHTML = `
         <div class="msg-title">💖 You’re officially my Valentine${titleNamePart}.</div>
         <div class="msg-body">
-            ${openingLine}
-            ${loveLine}
-            ${commitmentLine}
-            I promise to keep choosing you, loving you, and standing by you, 
-            through every laugh, every challenge, and every beautiful moment we share. ✨<br><br>
-            Happy Valentine’s Day, my love. 🌸
+          ${openingLine}
+          ${loveLine}
+          ${commitmentLine}
+          I promise to keep choosing you, loving you, and standing by you,
+          through every laugh, every challenge, and every beautiful moment we share. ✨<br><br>
+          Happy Valentine’s Day, my love. 🌸
         </div>
-        `;
+      `;
 
       // Change the top heading text with animation
       questionTitle.textContent = crushName
