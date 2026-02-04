@@ -49,8 +49,8 @@ body.celebrating {
 
 /* Main card */
 .card {
-  width: min(520px, 92vw);
-  height: 540px;
+   width: min(720px, 94vw);   
+  height: 560px;
   padding: 44px 36px 40px;
   border-radius: 34px;
   background:
@@ -274,7 +274,7 @@ button {
   left: 50%;
   top: -150px;
   transform: translateX(-50%) translateY(20px) scale(0.95);
-  width: 360px;    /* wider = more horizontal */
+  width: 500px;    /* wider = more horizontal */
   max-width: 86vw;
   padding: 16px 20px 18px;
   opacity: 0;
