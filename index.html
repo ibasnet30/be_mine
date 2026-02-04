@@ -80,44 +80,49 @@
     }
 
     // --- NO BUTTON RUNS AWAY ---
-     function moveNoButton() {
+
+    // --- NO BUTTON RUNS AWAY (with strict NO-GO zone around YES) ---
+    function moveNoButton() {
     const maxX = Math.max(0, wrapper.clientWidth  - noBtn.offsetWidth);
     const maxY = Math.max(0, wrapper.clientHeight - noBtn.offsetHeight);
 
-    const currentX = noBtn.offsetLeft;
-    const currentY = noBtn.offsetTop;
+    // YES button bounding box
+    const yesRect = yesBtn.getBoundingClientRect();
+    const wrapperRect = wrapper.getBoundingClientRect();
+
+    // YES position relative to wrapper
+    const yesLeft   = yesRect.left - wrapperRect.left;
+    const yesTop    = yesRect.top  - wrapperRect.top;
+    const yesRight  = yesLeft + yesBtn.offsetWidth;
+    const yesBottom = yesTop  + yesBtn.offsetHeight;
+
+    const padding = 5; // 🔒 strict buffer around YES
 
     let newX, newY;
-    const minMoveDistance = 60;   
-    const safeRadius = 110;       
-
-    const yesCenterX = yesBtn.offsetLeft + yesBtn.offsetWidth / 2;
-    const yesCenterY = yesBtn.offsetTop  + yesBtn.offsetHeight / 2;
-
     let tries = 0;
+
     do {
         newX = Math.random() * maxX;
         newY = Math.random() * maxY;
 
-        const newCenterX = newX + noBtn.offsetWidth / 2;
-        const newCenterY = newY + noBtn.offsetHeight / 2;
+        const noLeft   = newX;
+        const noTop    = newY;
+        const noRight  = newX + noBtn.offsetWidth;
+        const noBottom = newY + noBtn.offsetHeight;
 
-        const movedEnough =
-        Math.hypot(newX - currentX, newY - currentY) > minMoveDistance;
+        const overlapsYes =
+        noRight  > yesLeft  - padding &&
+        noLeft   < yesRight + padding &&
+        noBottom > yesTop   - padding &&
+        noTop    < yesBottom+ padding;
 
-        const farFromYes =
-        Math.hypot(newCenterX - yesCenterX, newCenterY - yesCenterY) > safeRadius;
-
-        
-        if (movedEnough && farFromYes) break;
-    } while (++tries < 40);
+        if (!overlapsYes) break;
+    } while (++tries < 50); // safety loop for tiny screens
 
     noBtn.style.transition = "none";
     noBtn.style.left = newX + "px";
     noBtn.style.top  = newY + "px";
     }
-
-
 
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("mousemove", moveNoButton);
