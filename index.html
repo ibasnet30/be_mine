@@ -79,29 +79,27 @@
         `One tiny question for my <span class="highlight-name">${crushName}</span> in the world. 😊`;
     }
 
-    // --- NO BUTTON RUNS AWAY ---
-
     // --- NO BUTTON RUNS AWAY (with strict NO-GO zone around YES) ---
     function moveNoButton() {
-    const maxX = Math.max(0, wrapper.clientWidth  - noBtn.offsetWidth);
-    const maxY = Math.max(0, wrapper.clientHeight - noBtn.offsetHeight);
+      const maxX = Math.max(0, wrapper.clientWidth  - noBtn.offsetWidth);
+      const maxY = Math.max(0, wrapper.clientHeight - noBtn.offsetHeight);
 
-    // YES button bounding box
-    const yesRect = yesBtn.getBoundingClientRect();
-    const wrapperRect = wrapper.getBoundingClientRect();
+      // YES button bounding box
+      const yesRect = yesBtn.getBoundingClientRect();
+      const wrapperRect = wrapper.getBoundingClientRect();
 
-    // YES position relative to wrapper
-    const yesLeft   = yesRect.left - wrapperRect.left;
-    const yesTop    = yesRect.top  - wrapperRect.top;
-    const yesRight  = yesLeft + yesBtn.offsetWidth;
-    const yesBottom = yesTop  + yesBtn.offsetHeight;
+      // YES position relative to wrapper
+      const yesLeft   = yesRect.left - wrapperRect.left;
+      const yesTop    = yesRect.top  - wrapperRect.top;
+      const yesRight  = yesLeft + yesBtn.offsetWidth;
+      const yesBottom = yesTop  + yesBtn.offsetHeight;
 
-    const padding = 5; // 🔒 strict buffer around YES
+      const padding = 5; // 🔒 strict buffer around YES
 
-    let newX, newY;
-    let tries = 0;
+      let newX, newY;
+      let tries = 0;
 
-    do {
+      do {
         newX = Math.random() * maxX;
         newY = Math.random() * maxY;
 
@@ -111,17 +109,17 @@
         const noBottom = newY + noBtn.offsetHeight;
 
         const overlapsYes =
-        noRight  > yesLeft  - padding &&
-        noLeft   < yesRight + padding &&
-        noBottom > yesTop   - padding &&
-        noTop    < yesBottom+ padding;
+          noRight  > yesLeft  - padding &&
+          noLeft   < yesRight + padding &&
+          noBottom > yesTop   - padding &&
+          noTop    < yesBottom + padding;
 
         if (!overlapsYes) break;
-    } while (++tries < 50); // safety loop for tiny screens
+      } while (++tries < 50); // safety loop for tiny screens
 
-    noBtn.style.transition = "none";
-    noBtn.style.left = newX + "px";
-    noBtn.style.top  = newY + "px";
+      noBtn.style.transition = "none";
+      noBtn.style.left = newX + "px";
+      noBtn.style.top  = newY + "px";
     }
 
     noBtn.addEventListener("mouseenter", moveNoButton);
@@ -159,23 +157,31 @@
       if (giftBox.classList.contains("open")) return;
 
       const titleNamePart = crushName ? `, ${crushName}` : "";
-      const congratsLine = crushName
-        ? `🎉 Congratulations, ${crushName}, you just made my heart the happiest. 💘<br>`
-        : `🎉 Congratulations, you just made my heart the happiest. 💘<br>`;
-      const thanksLine = crushName
-        ? `Thank you for choosing me, ${crushName}. I promise to spoil you with<br>`
-        : `Thank you for choosing me. I promise to spoil you with<br>`;
 
-      // Message in box
-      msg.innerHTML = `
+        const openingLine = crushName
+        ? `Every day with you feels special, ${crushName}. ❤️<br>`
+        : `Every day with you feels special. ❤️<br>`;
+
+        const loveLine = crushName
+        ? `I love you more than words can ever explain, ${crushName}.<br>`
+        : `I love you more than words can ever explain.<br>`;
+
+        const commitmentLine = `
+        You are my partner, my safe place, and my favourite person.<br>
+        Thank you for choosing me, today and every day. 🤍<br><br>
+        `;
+
+        msg.innerHTML = `
         <div class="msg-title">💖 You’re officially my Valentine${titleNamePart}.</div>
         <div class="msg-body">
-          ${congratsLine}
-          ${thanksLine}
-          hugs, dates, and way too many cute moments. ✨<br><br>
-          Get ready for the sweetest Valentine’s Day with me. 🌸
+            ${openingLine}
+            ${loveLine}
+            ${commitmentLine}
+            I promise to keep choosing you, loving you, and standing by you, 
+            through every laugh, every challenge, and every beautiful moment we share. ✨<br><br>
+            Happy Valentine’s Day, my love. 🌸
         </div>
-      `;
+        `;
 
       // Change the top heading text with animation
       questionTitle.textContent = crushName
