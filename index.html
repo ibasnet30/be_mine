@@ -80,25 +80,44 @@
     }
 
     // --- NO BUTTON RUNS AWAY ---
-    function moveNoButton() {
-      const maxX = wrapper.clientWidth  - noBtn.offsetWidth;
-      const maxY = wrapper.clientHeight - noBtn.offsetHeight;
+     function moveNoButton() {
+    const maxX = Math.max(0, wrapper.clientWidth  - noBtn.offsetWidth);
+    const maxY = Math.max(0, wrapper.clientHeight - noBtn.offsetHeight);
 
-      const currentX = noBtn.offsetLeft;
-      const currentY = noBtn.offsetTop;
+    const currentX = noBtn.offsetLeft;
+    const currentY = noBtn.offsetTop;
 
-      let newX, newY;
-      const minDistance = 80;
+    let newX, newY;
+    const minMoveDistance = 60;   
+    const safeRadius = 110;       
 
-      do {
+    const yesCenterX = yesBtn.offsetLeft + yesBtn.offsetWidth / 2;
+    const yesCenterY = yesBtn.offsetTop  + yesBtn.offsetHeight / 2;
+
+    let tries = 0;
+    do {
         newX = Math.random() * maxX;
         newY = Math.random() * maxY;
-      } while (Math.hypot(newX - currentX, newY - currentY) < minDistance);
 
-      noBtn.style.transition = "none";
-      noBtn.style.left = newX + "px";
-      noBtn.style.top  = newY + "px";
+        const newCenterX = newX + noBtn.offsetWidth / 2;
+        const newCenterY = newY + noBtn.offsetHeight / 2;
+
+        const movedEnough =
+        Math.hypot(newX - currentX, newY - currentY) > minMoveDistance;
+
+        const farFromYes =
+        Math.hypot(newCenterX - yesCenterX, newCenterY - yesCenterY) > safeRadius;
+
+        
+        if (movedEnough && farFromYes) break;
+    } while (++tries < 40);
+
+    noBtn.style.transition = "none";
+    noBtn.style.left = newX + "px";
+    noBtn.style.top  = newY + "px";
     }
+
+
 
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("mousemove", moveNoButton);
