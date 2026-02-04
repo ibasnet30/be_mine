@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +6,10 @@
   <title>Valentine 💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Cute fonts -->
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
-  <!-- External CSS -->
+  <!--  CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -28,11 +29,11 @@
     </p>
 
     <div class="buttons" id="buttonsWrapper">
-      <button id="yesBtn">💗 Yes, of course!</button>
+      <button id="yesBtn">💗 Yes</button>
       <button id="noBtn">❌ No</button>
     </div>
 
-    <!-- Tiny box that will pop the message when Yes is clicked -->
+    
     <div class="gift-wrapper">
       <div class="gift" id="giftBox">
         <div class="gift-box"></div>
@@ -57,76 +58,86 @@
     const heartRed         = document.getElementById("heartRed");
     const questionTitle    = document.getElementById("questionTitle");
 
-    // Optional Name ?name=... from URL
+    // Name
     const params = new URLSearchParams(window.location.search);
     let crushName = params.get("name");
 
-    if (crushName) {
-      // decode + trim + basic capitalisation
+    
       crushName = crushName.replace(/\+/g, " ");
       crushName = decodeURIComponent(crushName).trim();
       if (crushName.length > 0) {
         crushName = crushName[0].toUpperCase() + crushName.slice(1);
       } else {
-        crushName = null; // empty string = treat as no name
+        crushName = null;
       }
-    }
+    
 
-    // If we have a name, personalise heading & subtitle
+    // personalize name
     if (crushName) {
       questionTitle.textContent = `Will you be my Valentine, ${crushName}?`;
       questionMessage.innerHTML =
         `One tiny question for my <span class="highlight-name">${crushName}</span> in the world. 😊`;
     }
+    
 
-    // --- NO BUTTON RUNS AWAY (with strict NO-GO zone around YES) ---
-    function moveNoButton() {
-      const maxX = Math.max(0, wrapper.clientWidth  - noBtn.offsetWidth);
-      const maxY = Math.max(0, wrapper.clientHeight - noBtn.offsetHeight);
+    // --- NO BUTTON RUNS AWAY 
+     function moveNoButton() {
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const yesRect = yesBtn.getBoundingClientRect();
+  const noRect  = noBtn.getBoundingClientRect();
 
-      // YES button bounding box
-      const yesRect = yesBtn.getBoundingClientRect();
-      const wrapperRect = wrapper.getBoundingClientRect();
+  // If NO is still in normal flow, lock its current spot as the starting point
+  if (getComputedStyle(noBtn).position !== "absolute") {
+    const startX = noRect.left - wrapperRect.left;
+    const startY = noRect.top  - wrapperRect.top;
 
-      // YES position relative to wrapper
-      const yesLeft   = yesRect.left - wrapperRect.left;
-      const yesTop    = yesRect.top  - wrapperRect.top;
-      const yesRight  = yesLeft + yesBtn.offsetWidth;
-      const yesBottom = yesTop  + yesBtn.offsetHeight;
+    noBtn.style.position = "absolute";
+    noBtn.style.left = startX + "px";
+    noBtn.style.top  = startY + "px";
+  }
 
-      const padding = 5; // strict buffer around YES
+  const maxX = Math.max(0, wrapper.clientWidth  - noBtn.offsetWidth);
+  const maxY = Math.max(0, wrapper.clientHeight - noBtn.offsetHeight);
 
-      let newX, newY;
-      let tries = 0;
+  // YES position relative to wrapper
+  const yesLeft   = yesRect.left - wrapperRect.left;
+  const yesTop    = yesRect.top  - wrapperRect.top;
+  const yesRight  = yesLeft + yesBtn.offsetWidth;
+  const yesBottom = yesTop  + yesBtn.offsetHeight;
 
-      do {
-        newX = Math.random() * maxX;
-        newY = Math.random() * maxY;
+  const padding = 20; 
 
-        const noLeft   = newX;
-        const noTop    = newY;
-        const noRight  = newX + noBtn.offsetWidth;
-        const noBottom = newY + noBtn.offsetHeight;
+  let newX, newY;
+  let tries = 0;
 
-        const overlapsYes =
-          noRight  > yesLeft  - padding &&
-          noLeft   < yesRight + padding &&
-          noBottom > yesTop   - padding &&
-          noTop    < yesBottom + padding;
+  do {
+    newX = Math.random() * maxX;
+    newY = Math.random() * maxY;
 
-        if (!overlapsYes) break;
-      } while (++tries < 50); // safety loop for tiny screens
+    const noLeft   = newX;
+    const noTop    = newY;
+    const noRight  = newX + noBtn.offsetWidth;
+    const noBottom = newY + noBtn.offsetHeight;
 
-      noBtn.style.transition = "none";
-      noBtn.style.left = newX + "px";
-      noBtn.style.top  = newY + "px";
-    }
+    const overlapsYes =
+      noRight  > yesLeft  - padding &&
+      noLeft   < yesRight + padding &&
+      noBottom > yesTop   - padding &&
+      noTop    < yesBottom + padding;
+
+    if (!overlapsYes) break;
+  } while (++tries < 50);
+
+  noBtn.style.transition = "left 0.15s ease-out, top 0.15s ease-out";
+  noBtn.style.left = newX + "px";
+  noBtn.style.top  = newY + "px";
+}
 
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("mousemove", moveNoButton);
     noBtn.addEventListener("touchstart", moveNoButton);
 
-    // 🎉 Confetti – brighter & more colourful
+    // 🎉 Confetti 
     function createConfetti() {
       const container = document.createElement("div");
       container.className = "confetti-container";
@@ -200,7 +211,7 @@
         </div>
       `;
 
-      // Change the top heading text with animation
+      // top heading
       questionTitle.textContent = crushName
         ? `Yay! 💖 ${crushName} said YES!`
         : "Yay! 💖 You said YES!";
@@ -216,6 +227,7 @@
       yesBtn.style.display = "none";
       noBtn.style.display   = "none";
       questionMessage.style.display = "none";
+      
 
       // Celebrate
       giftBox.classList.add("open");
