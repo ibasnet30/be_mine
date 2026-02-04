@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Cute fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="card">
+    <!-- TOP QUESTION BLOCK -->
+    <div id="topQuestion">
+      <h1 id="questionTitle">Will you be my Valentine?</h1>
+      <div class="heart">
+        <span class="heart-yellow" id="heartYellow">💛</span>
+        <span class="heart-red" id="heartRed">❤️</span>
+      </div>
+    </div>
+
+    <p class="subtitle" id="questionMessage">
+      One tiny question for my <span class="highlight-name">favourite person</span> in the world. 😊
+    </p>
+
+    <div class="buttons" id="buttonsWrapper">
+      <button id="yesBtn">💗 Yes, of course!</button>
+      <button id="noBtn">❌ No</button>
+    </div>
+
+    <!-- Tiny box that will pop the message when Yes is clicked -->
+    <div class="gift-wrapper">
+      <div class="gift" id="giftBox">
+        <div class="gift-box"></div>
+        <div class="gift-lid"></div>
+        <div class="gift-ribbon-vert"></div>
+        <div class="gift-ribbon-horiz"></div>
+        <div class="gift-heart">💝</div>
+        <div class="gift-glow"></div>
+        <div class="gift-message" id="message"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const wrapper          = document.getElementById("buttonsWrapper");
+    const noBtn            = document.getElementById("noBtn");
+    const yesBtn           = document.getElementById("yesBtn");
+    const giftBox          = document.getElementById("giftBox");
+    const msg              = document.getElementById("message");
+    const questionMessage  = document.getElementById("questionMessage");
+    const heartYellow      = document.getElementById("heartYellow");
+    const heartRed         = document.getElementById("heartRed");
+    const questionTitle    = document.getElementById("questionTitle");
+
+    // Optional Name ?name=... from URL
+    const params = new URLSearchParams(window.location.search);
+    let crushName = params.get("name");
+
+    if (crushName) {
+      // decode + trim + basic capitalisation
+      crushName = crushName.replace(/\+/g, " ");
+      crushName = decodeURIComponent(crushName).trim();
+      if (crushName.length > 0) {
+        crushName = crushName[0].toUpperCase() + crushName.slice(1);
+      } else {
+        crushName = null; // empty string = treat as no name
+      }
+    }
+
+    // If we have a name, personalise heading & subtitle
+    if (crushName) {
+      questionTitle.textContent = `Will you be my Valentine, ${crushName}?`;
+      questionMessage.innerHTML =
+        `One tiny question for my <span class="highlight-name">${crushName}</span> in the world. 😊`;
+    }
+
+    // --- NO BUTTON RUNS AWAY ---
+    function moveNoButton() {
+      const maxX = wrapper.clientWidth  - noBtn.offsetWidth;
+      const maxY = wrapper.clientHeight - noBtn.offsetHeight;
+
+      const currentX = noBtn.offsetLeft;
+      const currentY = noBtn.offsetTop;
+
+      let newX, newY;
+      const minDistance = 80;
+
+      do {
+        newX = Math.random() * maxX;
+        newY = Math.random() * maxY;
+      } while (Math.hypot(newX - currentX, newY - currentY) < minDistance);
+
+      noBtn.style.transition = "none";
+      noBtn.style.left = newX + "px";
+      noBtn.style.top  = newY + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("mousemove", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    // Confetti
+    function createConfetti() {
+      const container = document.createElement("div");
+      container.className = "confetti-container";
+      document.body.appendChild(container);
+
+      const colors = ["#ffb3e6", "#ff80bf", "#ffcce6", "#e6b3ff", "#ffd1dc"];
+      const pieces = 130;
+
+      for (let i = 0; i < pieces; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+
+        const size = 6 + Math.random() * 6;
+        piece.style.width = size + "px";
+        piece.style.height = (size * 1.6) + "px";
+
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = 3 + Math.random() * 2 + "s";
+        piece.style.animationDelay = Math.random() * 3 + "s";
+
+        container.appendChild(piece);
+      }
+    }
+
+    // YES click ;  change question, heart color & show message
+    yesBtn.addEventListener("click", () => {
+      if (giftBox.classList.contains("open")) return;
+
+      const titleNamePart = crushName ? `, ${crushName}` : "";
+      const congratsLine = crushName
+        ? `🎉 Congratulations, ${crushName} — you just made my heart the happiest. 💘<br>`
+        : `🎉 Congratulations, you just made my heart the happiest. 💘<br>`;
+      const thanksLine = crushName
+        ? `Thank you for choosing me, ${crushName}. I promise to spoil you with<br>`
+        : `Thank you for choosing me. I promise to spoil you with<br>`;
+
+      // Message in box
+      msg.innerHTML = `
+        <div class="msg-title">💖 You’re officially my Valentine${titleNamePart}.</div>
+        <div class="msg-body">
+          ${congratsLine}
+          ${thanksLine}
+          hugs, dates, and way too many cute moments. ✨<br><br>
+          Get ready for the sweetest Valentine’s Day with me. 🌸
+        </div>
+      `;
+
+      // Change the top heading text with animation
+      questionTitle.textContent = crushName
+        ? `Yay! 💖 ${crushName} said YES!`
+        : "Yay! 💖 You said YES!";
+      questionTitle.classList.remove("question-change");
+      void questionTitle.offsetWidth; // restart animation
+      questionTitle.classList.add("question-change");
+
+      // Yellow to red heart
+      heartYellow.style.opacity = "0";
+      heartRed.style.opacity = "1";
+
+      // Hide buttons & subtitle
+      yesBtn.style.display = "none";
+      noBtn.style.display   = "none";
+      questionMessage.style.display = "none";
+
+      // Celebrate
+      giftBox.classList.add("open");
+      document.body.classList.add("celebrating");
+      createConfetti();
+    });
+  </script>
+</body>
+</html>
