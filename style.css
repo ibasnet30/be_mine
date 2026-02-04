@@ -3,23 +3,25 @@
   font-family: "Poppins", system-ui, sans-serif;
 }
 
+/* ---------- BODY / BACKGROUND ---------- */
+
 body {
   margin: 0;
-  min-height: 100svh;             
+  min-height: 100svh;            
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 0;                
+  align-items: center;           
+  justify-content: center;        
+  padding: 18px 0;               
   background: radial-gradient(circle at top, #ff9ad5, #4b0057 65%);
   color: #fff;
   overflow-x: hidden;
-  overflow-y: auto;               
+  overflow-y: auto;
   position: relative;
 }
 
 /* soft floating hearts in the background */
 body::before {
-  content: "❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤";
+  content: "❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤ ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤  ❤";
   position: fixed;
   top: 10%;
   left: 5%;
@@ -49,7 +51,8 @@ body.celebrating {
   100% { background: radial-gradient(circle at top, #ff9ad5, #4b0057 65%); }
 }
 
-/* Main card */
+/* ---------- MAIN CARD ---------- */
+
 .card {
   width: min(720px, 94vw);
   min-height: 520px;
@@ -129,11 +132,16 @@ body.celebrating {
   font-weight: 600;
 }
 
-/* BUTTONS */
+/* ---------- BUTTONS ---------- */
 .buttons {
   position: relative;
-  height: 110px;
+  height: 90px;              
   margin-top: 4px;
+
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  gap: 18px;
 }
 
 button {
@@ -167,17 +175,19 @@ button {
   filter: brightness(1.05);
 }
 
-/* NO button */
+/* NO button  */
 #noBtn {
   background: linear-gradient(135deg, #ff6b9d, #ff3b7f);
   color: #fff;
-  position: absolute;
-  left: 60%;
-  top: 40px;
   box-shadow: 0 10px 26px rgba(255, 107, 157, 0.7);
+ 
 }
 
-/* GIFT AREA  */
+
+
+
+/* ---------- GIFT AREA ---------- */
+
 .gift-wrapper {
   margin-top: 46px;
   min-height: 260px;    
@@ -272,7 +282,7 @@ button {
   z-index: 0;
 }
 
-/* MESSAGE — glowing horizontal rectangle */
+/* MESSAGE  */
 .gift-message {
   position: absolute;
   left: 50%;
@@ -301,8 +311,8 @@ button {
   letter-spacing: 0.3px;
 }
 
+/* ---------- OPENING ANIMATIONS ---------- */
 
-/* Opening animations */
 .gift.open .gift-lid {
   animation: lidOpen 0.6s ease-out forwards;
 }
@@ -356,7 +366,8 @@ button {
   }
 }
 
-/* Confetti */
+/* ---------- CONFETTI ---------- */
+
 .confetti-container {
   position: fixed;
   inset: 0;
@@ -399,7 +410,9 @@ button {
   }
 }
 
-/* tablets & small laptops */
+
+/* ---------- RESPONSIVE ---------- */
+
 @media (max-width: 768px) {
 
   .card {
@@ -428,9 +441,14 @@ button {
     padding: 18px 16px 20px;
     font-size: 0.9rem;
   }
+
+  body {
+    padding-block: 20px;  
+  }
 }
 
 /* phones */
+
 @media (max-width: 480px) {
 
   .card {
@@ -445,10 +463,29 @@ button {
     font-size: 0.9rem;
   }
 
+
+  .buttons {
+    flex-direction: column;   
+    align-items: center;
+    justify-content: flex-start;
+    height: 200px;          
+    margin-top: 8px;
+    gap: 12px;
+    
+  }
+
+  .gift-wrapper {
+    margin-top: 24px;        
+  }
+
   .gift-message {
-    top: -120px;
+    top: -200px;                
     max-width: 92vw;
     padding: 18px 16px 20px;
     font-size: 0.9rem;
+  }
+
+  body::after {
+    display: none;
   }
 }
