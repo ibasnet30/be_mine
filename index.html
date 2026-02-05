@@ -58,18 +58,21 @@
     const heartRed         = document.getElementById("heartRed");
     const questionTitle    = document.getElementById("questionTitle");
 
-    // Name
-    const params = new URLSearchParams(window.location.search);
-    let crushName = params.get("name");
+   // Name
+const params = new URLSearchParams(window.location.search);
+let crushName = params.get("name");
 
-    
-      crushName = crushName.replace(/\+/g, " ");
-      crushName = decodeURIComponent(crushName).trim();
-      if (crushName.length > 0) {
-        crushName = crushName[0].toUpperCase() + crushName.slice(1);
-      } else {
-        crushName = null;
-      }
+if (crushName) {
+  crushName = crushName.replace(/\+/g, " ");
+  crushName = decodeURIComponent(crushName).trim();
+
+  if (crushName.length > 0) {
+    crushName = crushName[0].toUpperCase() + crushName.slice(1);
+  } else {
+    crushName = null;
+  }
+}
+
     
 
     // personalize name
@@ -186,17 +189,18 @@
       const titleNamePart = crushName ? `, ${crushName}` : "";
 
       const openingLine = crushName
-        ? `Every day with you feels special, ${crushName}. ❤️<br>`
-        : `Every day with you feels special. ❤️<br>`;
+      ? `Every day with you feels special. ❤️<br>`
+      : `Every day with you feels special. ❤️<br>`;
 
-      const loveLine = crushName
-        ? `I love you more than words can ever explain, ${crushName}.<br>`
-        : `I love you more than words can ever explain.<br>`;
+    const loveLine = crushName
+      ? `I love you more than words can ever explain.<br>`
+      : `I love you more than words can ever explain.<br>`;
 
-      const commitmentLine = `
-        You are my partner, my safe place, and my favourite person.<br>
-        Thank you for choosing me, today and every day. 🤍<br><br>
-      `;
+    const commitmentLine = `
+      You are my partner, my safe place, and my favourite person.<br>
+      Thank you for choosing me, today and every day. 🤍<br><br>
+    `;
+
 
       // Message in box
       msg.innerHTML = `
@@ -207,7 +211,7 @@
           ${commitmentLine}
           I promise to keep choosing you, loving you, and standing by you,
           through every laugh, every challenge, and every beautiful moment we share. ✨<br><br>
-          Happy Valentine’s Day, my love. 🌸
+          Can’t wait to spend Valentine’s Day with you. 🌸
         </div>
       `;
 
