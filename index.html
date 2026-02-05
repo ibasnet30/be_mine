@@ -182,6 +182,53 @@ if (crushName) {
       }
     }
 
+    // One-time burst confetti in FRONT of the card
+function createFrontConfetti() {
+  const container = document.createElement("div");
+  container.className = "confetti-container-front";
+  document.body.appendChild(container);
+
+  const colors = [
+    "#ff3b7f",
+    "#ff9f0a",
+    "#ffcc00",
+    "#34c759",
+    "#5ac8fa",
+    "#af52de",
+    "#ffd1dc"
+  ];
+
+  const pieces = 120;
+
+  for (let i = 0; i < pieces; i++) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-front";
+
+    const size = 6 + Math.random() * 7;
+    piece.style.width = size + "px";
+    piece.style.height = (size * (1.2 + Math.random() * 0.8)) + "px";
+
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    const roundnessOptions = ["2px", "4px", "999px"];
+    piece.style.borderRadius =
+      roundnessOptions[Math.floor(Math.random() * roundnessOptions.length)];
+
+    piece.style.animationDuration = 2.0 + Math.random() * 2.5 + "s";
+    piece.style.animationDelay = Math.random() * 0.8 + "s";
+    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+    container.appendChild(piece);
+  }
+
+  // remove front confetti layer after it finishes
+  setTimeout(() => {
+    container.remove();
+  }, 5000); // a bit longer than max duration+delay
+}
+
     // YES click ; change question, heart color & show message
     yesBtn.addEventListener("click", () => {
       if (giftBox.classList.contains("open")) return;
@@ -237,6 +284,7 @@ if (crushName) {
       giftBox.classList.add("open");
       document.body.classList.add("celebrating");
       createConfetti();
+      createFrontConfetti();
     });
   </script>
 </body>
